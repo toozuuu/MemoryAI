@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🧠 MemoryAI</h1>
+  <h1>MemoryAI</h1>
   <p><strong>Universal, Secure, Local-First Long-Term Memory Platform for AI Agents</strong></p>
   <p>Remember everything that matters. Retrieve only what matters.</p>
 
@@ -21,7 +21,7 @@
 
 ---
 
-## 🎯 Core Principle
+## Core Principle
 
 > **MemoryAI provides effectively unlimited persistent memory by storing large amounts of durable knowledge locally and retrieving only a bounded, highly relevant subset for the LLM context.**
 
@@ -49,21 +49,21 @@ User Request / IDE Event
 
 ---
 
-## ⚡ Key Highlights
+## Key Highlights
 
-- **🤖 Zero Manual Overhead:** MemoryAI automatically detects project identity via Git/package manifests, recalls relevant context, captures durable decisions, and generates session handoffs.
-- **🌐 Universal Cross-Client Portability:** Normalized conversation events (`MemoryAIConversationEvent`) seamlessly bridge Claude Code, Cursor, Codex, Gemini CLI, ChatGPT, and MCP clients.
-- **⚡ MCP 2026 Stateless Core & Tasks Extension:** Fully compatible with the MCP 2026 specification featuring stateless execution, explicit application handles (`memoryContextId`, `taskId`, `handoffId`, `snapshotId`), and background task management.
-- **📊 4-Tier Progressive Disclosure:** Context builds progressively—from **Level 1 (150-token summary)** and **Level 2 (canonical facts)** up to **Level 3 (supporting evidence)** and **Level 4 (conversation traces)**.
-- **📸 Memory Snapshots & Historical Diffs:** Take point-in-time project snapshots (`memoryai snapshot create`) and inspect historical diffs (`memoryai diff`) across architectural decisions.
-- **🩺 Project Memory Health Diagnostics:** Real-time 0–100 health scoring evaluating freshness, confidence, conflict rate, provenance, and handoff completeness (`memoryai health`).
-- **🛡 Privacy & Two-Phase Writes:** Automated detection and redaction of RSA private keys, AWS access keys, JWT tokens, connection strings, and PII before permanent storage.
-- **📐 Zero-Downtime Embedding Migrations:** Atomic shadow table vector indexing with safe rollback capabilities (`memoryai embeddings migrate`).
-- **📦 Portable `.memorypack` Format:** Export, backup, and restore persistent memories with SHA-256 integrity checks.
+- **Zero Manual Overhead:** MemoryAI automatically detects project identity via Git/package manifests, recalls relevant context, captures durable decisions, and generates session handoffs.
+- **Universal Cross-Client Portability:** Normalized conversation events (`MemoryAIConversationEvent`) seamlessly bridge Claude Code, Cursor, Codex, Gemini CLI, ChatGPT, and MCP clients.
+- **MCP 2026 Stateless Core & Tasks Extension:** Fully compatible with the MCP 2026 specification featuring stateless execution, explicit application handles (`memoryContextId`, `taskId`, `handoffId`, `snapshotId`), and background task management.
+- **4-Tier Progressive Disclosure:** Context builds progressively—from **Level 1 (150-token summary)** and **Level 2 (canonical facts)** up to **Level 3 (supporting evidence)** and **Level 4 (conversation traces)**.
+- **Memory Snapshots & Historical Diffs:** Take point-in-time project snapshots (`memoryai snapshot create`) and inspect historical diffs (`memoryai diff`) across architectural decisions.
+- **Project Memory Health Diagnostics:** Real-time 0–100 health scoring evaluating freshness, confidence, conflict rate, provenance, and handoff completeness (`memoryai health`).
+- **Privacy & Two-Phase Writes:** Automated detection and redaction of RSA private keys, AWS access keys, JWT tokens, connection strings, and PII before permanent storage.
+- **Zero-Downtime Embedding Migrations:** Atomic shadow table vector indexing with safe rollback capabilities (`memoryai embeddings migrate`).
+- **Portable `.memorypack` Format:** Export, backup, and restore persistent memories with SHA-256 integrity checks.
 
 ---
 
-## 🚀 Quickstart
+## Quickstart
 
 ### 1. Installation
 
@@ -96,7 +96,7 @@ node cli/dist/bin.js recall "Fastify and SQLite database decisions" --max-tokens
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 ```
                          MemoryAI Platform
@@ -135,7 +135,7 @@ Selective Encryption     Health Monitor (0-100)   Model Router
 
 ---
 
-## 📡 Event-Driven Memory
+## Event-Driven Memory
 
 MemoryAI automatically reacts to IDE and agent lifecycle events rather than requiring manual intervention:
 
@@ -156,7 +156,7 @@ node cli/dist/bin.js remember "Project migrated to Angular 21 with standalone co
 
 ---
 
-## 📈 Progressive Disclosure Context
+## Progressive Disclosure Context
 
 Retrieve only the depth of information required for the current prompt:
 
@@ -172,7 +172,7 @@ node cli/dist/bin.js recall "OAuth architecture" --max-tokens 300
 
 ---
 
-## 🔌 MCP 2026 & Tasks Extension
+## MCP 2026 & Tasks Extension
 
 MemoryAI provides a fully compliant MCP server over stdio for **Claude Desktop**, **Claude Code**, **Cursor**, **Codex**, and any MCP client.
 
@@ -192,7 +192,7 @@ MemoryAI provides a fully compliant MCP server over stdio for **Claude Desktop**
 
 ---
 
-## 📸 Snapshots & Versioning
+## Snapshots & Versioning
 
 ```bash
 # Create a point-in-time milestone snapshot
@@ -210,7 +210,7 @@ node cli/dist/bin.js diff mem_123 1 2
 
 ---
 
-## 🩺 Health & Diagnostics
+## Health & Diagnostics
 
 ```bash
 # Check 0-100 Project Memory Health score and diagnostic breakdown
@@ -234,7 +234,7 @@ node cli/dist/bin.js recovery
 
 ---
 
-## 🛡 Security & Privacy Architecture
+## Security & Privacy Architecture
 
 | Security Control | Implementation |
 | :--- | :--- |
@@ -248,7 +248,7 @@ node cli/dist/bin.js recovery
 
 ---
 
-## 💻 CLI Reference
+## CLI Reference
 
 | Command | Description |
 | :--- | :--- |
@@ -272,7 +272,7 @@ node cli/dist/bin.js recovery
 
 ---
 
-## 🧪 Testing & Verification
+## Testing & Verification
 
 ```bash
 # Run all 89 unit, integration, memory, retrieval, MCP, concurrency, and performance tests
@@ -287,6 +287,6 @@ npm run test:all
 
 ---
 
-## 📄 License
+## License
 
 MIT License. Copyright (c) 2026 MemoryAI Contributors.
