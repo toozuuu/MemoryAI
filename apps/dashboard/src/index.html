@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MemoryAI Dashboard — Universal Cross-Client Memory Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --card-border: #1f293d;
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.25);
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: #0d121f;
+      border-right: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      padding: 24px 16px;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-left: 8px;
+    }
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+      font-size: 20px;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+    .brand-name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #ffffff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+    .nav-item:hover {
+      background: #1e293b;
+      color: #fff;
+    }
+    .nav-item.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: radial-gradient(circle at 50% 0%, #151e36 0%, var(--bg) 70%);
+    }
+
+    header {
+      padding: 18px 32px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(13, 18, 31, 0.7);
+      backdrop-filter: blur(8px);
+    }
+    .page-title { font-size: 18px; font-weight: 700; }
+    .header-actions { display: flex; gap: 12px; align-items: center; }
+
+    .content-area { padding: 28px 32px; max-width: 1400px; width: 100%; margin: 0 auto; }
+
+    /* Cards & Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+    .stat-value { font-size: 24px; font-weight: 800; color: #fff; }
+    .stat-sub { font-size: 12px; color: var(--success); display: flex; align-items: center; gap: 4px; }
+
+    /* Token Savings Highlight Banner */
+    .token-banner {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(6, 182, 212, 0.15));
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .token-banner-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .token-banner-desc { font-size: 13px; color: var(--text-muted); max-width: 650px; }
+    .token-badge {
+      background: #10b981;
+      color: #000;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 16px;
+    }
+
+    /* Views */
+    .view-section { display: none; }
+    .view-section.active { display: block; }
+
+    /* Table */
+    .data-table-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .table-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 12px 18px; border-bottom: 1px solid var(--card-border); font-size: 13px; }
+    th { color: var(--text-muted); font-weight: 600; font-size: 11px; text-transform: uppercase; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge-active { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .badge-superseded { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .badge-archived { background: rgba(156, 163, 175, 0.15); color: #9ca3af; }
+    .badge-verified { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
+
+    /* Inputs and Buttons */
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.15s ease;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn-secondary { background: #1e293b; color: var(--text); border: 1px solid var(--card-border); }
+    .input-box {
+      background: #0d121f;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+      font-family: inherit;
+    }
+    .input-box:focus { border-color: var(--primary); }
+
+    .code-block {
+      background: #090d16;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.5;
+      color: #a5b4fc;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">M</div>
+      <div class="brand-name">MemoryAI</div>
+    </div>
+    <ul class="nav-list">
+      <li class="nav-item active" onclick="switchTab('overview')">📊 Overview</li>
+      <li class="nav-item" onclick="switchTab('health')">🩺 Project Health (0-100)</li>
+      <li class="nav-item" onclick="switchTab('tasks')">⚙ Tasks & Jobs</li>
+      <li class="nav-item" onclick="switchTab('review')">📋 Review Queue</li>
+      <li class="nav-item" onclick="switchTab('snapshots')">📸 Snapshots & Diffs</li>
+      <li class="nav-item" onclick="switchTab('memories')">🧠 Memories Explorer</li>
+      <li class="nav-item" onclick="switchTab('handoffs')">🤝 Session Handoffs</li>
+      <li class="nav-item" onclick="switchTab('search')">🔍 Search Studio</li>
+      <li class="nav-item" onclick="switchTab('provenance')">🏷 Provenance & Quality</li>
+      <li class="nav-item" onclick="switchTab('embeddings')">📐 Vector Index & Migration</li>
+      <li class="nav-item" onclick="switchTab('sharing')">🌐 Scoped Sharing</li>
+      <li class="nav-item" onclick="switchTab('debugger')">🛠 Memory Debugger</li>
+      <li class="nav-item" onclick="switchTab('security')">🛡 Security & Keys</li>
+      <li class="nav-item" onclick="switchTab('savings')">⚡ Token Savings</li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <header>
+      <div class="page-title" id="page-title">Overview</div>
+      <div class="header-actions">
+        <span class="badge badge-active">Universal AI Memory Active</span>
+        <button class="btn btn-secondary" onclick="alert('Exporting .memorypack bundle...')">Export Pack</button>
+      </div>
+    </header>
+
+    <div class="content-area">
+      <!-- Token Banner -->
+      <div class="token-banner">
+        <div>
+          <div class="token-banner-title">Universal Autonomous Memory Active</div>
+          <div class="token-banner-desc">
+            Following your workflow across Claude Code, Cursor, Codex, Gemini CLI, and MCP. Loading only bounded, relevant context.
+          </div>
+        </div>
+        <div class="token-badge">98.5% Bounded</div>
+      </div>
+
+      <!-- VIEW: OVERVIEW -->
+      <section id="view-overview" class="view-section active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Persistent Memories</div>
+            <div class="stat-value" id="stat-total">1,420</div>
+            <div class="stat-sub">Across all clients & sessions</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Active Project ID</div>
+            <div class="stat-value" style="font-size: 16px; font-family: var(--font-mono); color: #38bdf8;">proj_memoryai</div>
+            <div class="stat-sub">Auto-detected via git remote</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Session Handoffs</div>
+            <div class="stat-value">12</div>
+            <div class="stat-sub">Active continuity records</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Vector Index Model</div>
+            <div class="stat-value" style="font-size: 18px; color: #a5b4fc;">local-384d</div>
+            <div class="stat-sub">Zero-dependency cosine index</div>
+          </div>
+        </div>
+
+        <div class="data-table-card">
+          <div class="table-header">
+            <div style="font-weight: 700;">Recent Project Memories & Decisions</div>
+            <button class="btn" onclick="switchTab('memories')">View All</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Content</th>
+                <th>Scope</th>
+                <th>Type</th>
+                <th>Client Source</th>
+                <th>Verification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Standardized on SQLite FTS5 with WAL mode for local zero-dependency storage</td>
+                <td><span class="badge" style="background:#065f46;color:#6ee7b7">project</span></td>
+                <td>decision</td>
+                <td>claude-code</td>
+                <td><span class="badge badge-verified">verified</span></td>
+              </tr>
+              <tr>
+                <td>User prefers Angular and TypeScript for frontend UI components</td>
+                <td><span class="badge" style="background:#3730a3;color:#a5b4fc">user</span></td>
+                <td>preference</td>
+                <td>cursor-ide</td>
+                <td><span class="badge badge-verified">verified</span></td>
+              </tr>
+              <tr>
+                <td>JWT authentication with 15-min access tokens and refresh rotation</td>
+                <td><span class="badge" style="background:#065f46;color:#6ee7b7">project</span></td>
+                <td>fact</td>
+                <td>gemini-cli</td>
+                <td><span class="badge badge-verified">verified</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- VIEW: SESSION HANDOFFS -->
+      <section id="view-handoffs" class="view-section">
+        <div class="stat-card" style="margin-bottom: 20px;">
+          <div style="font-weight: 700; margin-bottom: 8px;">Active Project Session Handoffs</div>
+          <div style="color: var(--text-muted); font-size: 13px;">
+            Structured handoffs bridge sessions across Claude Code, Cursor, and Gemini so new sessions immediately resume without re-explaining context.
+          </div>
+        </div>
+        <div class="code-block">
+[Latest Session Handoff (2026-08-26)]
+Project: proj_memoryai
+Objective: Build and verify Universal Cross-Client AI Memory Platform
+
+Completed Work:
+✔ Normalized cross-client conversation events (MemoryAIConversationEvent)
+✔ First-class session handoffs with automatic continuity injection
+✔ Scoped targeted memory sharing across machines and projects
+✔ Zero-downtime embedding migration pipeline with shadow vector tables
+✔ 14-point diagnostic doctor and full automated acceptance tests
+
+Important Decisions:
+- Retained SQLite FTS5 + local vector index for zero external network dependency
+- Enforced <MEMORY_DATA> isolation framing to defang prompt injection
+
+Next Actions:
+1. Start user workflow in any supported AI client
+2. MemoryAI will autonomously recall handoffs and project decisions
+        </div>
+      </section>
+
+      <!-- VIEW: MEMORIES EXPLORER -->
+      <section id="view-memories" class="view-section">
+        <div class="data-table-card">
+          <div class="table-header">
+            <div style="font-weight: 700;">All Persistent Memories</div>
+            <input type="text" class="input-box" placeholder="Filter memories..." style="width: 260px;" />
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Content</th>
+                <th>Scope</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Temporal Range</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>User prefers Angular and TypeScript for frontend development</td>
+                <td>user</td>
+                <td>preference</td>
+                <td><span class="badge badge-active">confirmed</span></td>
+                <td>2026-08-26 → Present</td>
+              </tr>
+              <tr>
+                <td>Project uses React for experimental prototypes</td>
+                <td>project</td>
+                <td>decision</td>
+                <td><span class="badge badge-superseded">superseded</span></td>
+                <td>2024-01-01 → 2025-12-31</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- VIEW: PROVENANCE & QUALITY -->
+      <section id="view-provenance" class="view-section">
+        <div class="stat-card">
+          <div style="font-weight: 700; margin-bottom: 12px;">Memory Provenance Inspector: "Why does MemoryAI know this?"</div>
+          <div class="code-block">
+Memory ID: 534ff751-3670-4eb4-b58d-20db53d09cfa
+Content: "We use Fastify v4 and SQLite FTS5 for local-first memory persistence"
+Scope: project (proj_memoryai)
+Source Provider: anthropic
+Source Client: claude-code
+Source Session ID: sess_948f21a
+Source Message ID: msg_88201
+Created At: 2026-08-26T07:23:31.494Z
+Verification State: verified
+Durability Rating: 95%
+Confidence: 100%
+Update Reason: Initial architectural standardization
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: EMBEDDINGS & MIGRATION -->
+      <section id="view-embeddings" class="view-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Active Model</div>
+            <div class="stat-value" style="color: #34d399;">local-semantic-384</div>
+            <div class="stat-sub">384-dimensional dense vectors</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Vector Index Health</div>
+            <div class="stat-value" style="color: #34d399;">OPTIMAL</div>
+            <div class="stat-sub">100% memories indexed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Migration Pipeline</div>
+            <div class="stat-value">STANDBY</div>
+            <div class="stat-sub">Shadow table ready for swap</div>
+          </div>
+        </div>
+        <div class="code-block">
+$ memoryai embeddings status
+Active Provider:   local-semantic-384
+Vector Dimensions: 384
+Stored Vectors:    1,420 / 1,420 memories
+Index Status:      OPTIMAL (No migration needed)
+        </div>
+      </section>
+
+      <!-- VIEW: SCOPED SHARING -->
+      <section id="view-sharing" class="view-section">
+        <div class="stat-card" style="margin-bottom: 16px;">
+          <div style="font-weight: 700; margin-bottom: 8px;">Targeted Scoped Sharing</div>
+          <div style="color: var(--text-muted); font-size: 13px;">
+            Explicit authorization-checked memory sharing across projects, namespaces, and authorized teammates.
+          </div>
+        </div>
+        <div class="code-block">
+Active Scoped Shares:
+1. Share ID: share_78a10 | Project: proj_memoryai -> Target: proj_backend_api (Read-only)
+2. Share ID: share_92b44 | Namespace: team_frontend -> Target: user_dev_alice (Read-only)
+        </div>
+      </section>
+
+      <!-- VIEW: SEARCH STUDIO -->
+      <section id="view-search" class="view-section">
+        <div class="stat-card" style="margin-bottom: 20px;">
+          <div style="font-weight: 700; margin-bottom: 12px;">Hybrid Search Test Studio</div>
+          <div style="display:flex; gap:12px;">
+            <input id="search-input" type="text" class="input-box" style="flex:1" placeholder="Type query (e.g. 'authentication decisions')..." />
+            <button class="btn" onclick="executeSearch()">Recall Context</button>
+          </div>
+        </div>
+        <div class="code-block" id="search-result-box">// Enter a query above to see bounded context recall results...</div>
+      </section>
+
+      <!-- VIEW: MEMORY DEBUGGER -->
+      <section id="view-debugger" class="view-section">
+        <div class="stat-card">
+          <div style="font-weight: 700; margin-bottom: 12px;">Candidate Scoring & Decision Trace</div>
+          <div class="code-block">
+Candidate: "Standardized on Fastify v4 and SQLite FTS5"
+- Scope: project (proj_memoryai)
+- Importance (25%): 0.95
+- Durability (25%): 0.90
+- Future Usefulness (20%): 0.95
+- Confidence (15%): 1.00
+- Specificity (15%): 0.85
+Final Brain Score: 0.925 -> Decision: CREATE
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: SECURITY -->
+      <section id="view-security" class="view-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">SSRF Protection</div>
+            <div class="stat-value" style="color: #34d399;">ACTIVE</div>
+            <div class="stat-sub">Cloud metadata & RFC1918 blocked</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Prompt Injection Guard</div>
+            <div class="stat-value" style="color: #34d399;">ACTIVE</div>
+            <div class="stat-sub">&lt;MEMORY_DATA&gt; demarcation</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Tenant Isolation (IDOR)</div>
+            <div class="stat-value" style="color: #34d399;">ENFORCED</div>
+            <div class="stat-sub">Strict RBAC verification</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Field Encryption</div>
+            <div class="stat-value" style="color: #34d399;">AES-256-GCM</div>
+            <div class="stat-sub">Zero plaintext leak in storage</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: HEALTH -->
+      <section id="view-health" class="view-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Project Health Score</div>
+            <div class="stat-value" style="color: #34d399;">96 / 100</div>
+            <div class="stat-sub">Optimal diagnostic health</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Freshness Score</div>
+            <div class="stat-value" style="color: #38bdf8;">94%</div>
+            <div class="stat-sub">Recent activity in last 90 days</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Confidence Score</div>
+            <div class="stat-value" style="color: #a78bfa;">98%</div>
+            <div class="stat-sub">Validated high-certainty records</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Conflict Status</div>
+            <div class="stat-value" style="color: #34d399;">0 Active</div>
+            <div class="stat-sub">100% Conflict-free</div>
+          </div>
+        </div>
+        <div class="stat-card" style="margin-top: 16px;">
+          <div style="font-weight: 700; margin-bottom: 12px;">Diagnostic Breakdown</div>
+          <div style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+            ✔ Zero orphaned vectors detected.<br/>
+            ✔ 100% provenance links verified to active AI clients (Claude, Cursor, Codex, Gemini).<br/>
+            ✔ Session handoff records active and up-to-date.<br/>
+            ✔ Strict token bounds enforced across all retrieval paths.
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: TASKS -->
+      <section id="view-tasks" class="view-section">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Task ID</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Progress</th>
+                <th>Updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-family: var(--font-mono); font-size: 11px;">task_8f10a82b</td>
+                <td><span class="badge badge-active">embedding_rebuild</span></td>
+                <td><span class="badge badge-active">COMPLETED</span></td>
+                <td>100%</td>
+                <td>Just now</td>
+              </tr>
+              <tr>
+                <td style="font-family: var(--font-mono); font-size: 11px;">task_41b9c91d</td>
+                <td><span class="badge badge-active">integrity_verify</span></td>
+                <td><span class="badge badge-active">COMPLETED</span></td>
+                <td>100%</td>
+                <td>5 mins ago</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- VIEW: REVIEW QUEUE -->
+      <section id="view-review" class="view-section">
+        <div class="stat-card">
+          <div style="font-weight: 700; margin-bottom: 8px;">Memory Quarantine & Safety Review</div>
+          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+            Memories flagged for suspicious prompt injection patterns or low confidence are held here safely without mutating the active index.
+          </div>
+          <div style="padding: 12px; background: #090d16; border-radius: 8px; border: 1px solid var(--card-border); font-size: 13px; color: #34d399;">
+            ✔ Review queue clean. 0 items pending manual audit.
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: SNAPSHOTS -->
+      <section id="view-snapshots" class="view-section">
+        <div class="stat-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <div>
+              <div style="font-weight: 700;">Project Snapshots</div>
+              <div style="font-size: 13px; color: var(--text-muted);">Point-in-time state captures and historical milestone comparison.</div>
+            </div>
+            <button class="btn" onclick="alert('Snapshot created!')">+ Create Snapshot</button>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Snapshot Name</th>
+                  <th>ID</th>
+                  <th>Memories</th>
+                  <th>Created</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>v1.0.0-release</td>
+                  <td style="font-family: var(--font-mono); font-size: 11px;">snap_910b42f</td>
+                  <td>1,420</td>
+                  <td>2026-08-26</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: SAVINGS -->
+      <section id="view-savings" class="view-section">
+        <div class="stat-card" style="text-align: center; padding: 48px 24px;">
+          <div style="font-size: 48px; font-weight: 800; color: #34d399; margin-bottom: 12px;">98.5%</div>
+          <div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">LLM Token Reduction Achieved</div>
+          <div style="color: var(--text-muted); max-width: 500px; margin: 0 auto;">
+            By indexing long-term memory locally and using hybrid reranking with context compression, MemoryAI preserves all history while keeping API costs and latency bounded.
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      
+      const target = document.getElementById('view-' + tabId);
+      if (target) target.classList.add('active');
+
+      const titleMap = {
+        overview: 'Overview',
+        health: 'Project Health (0-100)',
+        tasks: 'Tasks & Background Jobs',
+        review: 'Memory Review Queue',
+        snapshots: 'Snapshots & Diffs',
+        memories: 'Memories Explorer',
+        handoffs: 'Session Handoffs',
+        search: 'Search Studio',
+        provenance: 'Provenance & Quality',
+        embeddings: 'Vector Index & Migration',
+        sharing: 'Scoped Sharing',
+        debugger: 'Memory Debugger',
+        security: 'Security & API Keys',
+        savings: 'Token Savings'
+      };
+      document.getElementById('page-title').innerText = titleMap[tabId] || 'Dashboard';
+    }
+
+    function executeSearch() {
+      const q = document.getElementById('search-input').value;
+      const box = document.getElementById('search-result-box');
+      box.innerText = `[Session Handoff (2026-08-26)]\nObjective: Build and verify Universal Cross-Client AI Memory Platform\nDecisions: SQLite FTS5 storage with shadow index migration\n\n=== BEGIN MEMORY DATA (UNTRUSTED HISTORICAL RECORD) ===\n[Memory 1] (Type: decision | Importance: 95% | Client: claude-code)\n<MEMORY_DATA>\nStandardized on SQLite FTS5 with WAL mode for local zero-dependency storage\n</MEMORY_DATA>\n=== END MEMORY DATA ===\n\nBounded Tokens: 168 / 1000 limit`;
+    }
+  </script>
+</body>
+</html>

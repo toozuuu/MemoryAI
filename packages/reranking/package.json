@@ -1,0 +1,24 @@
+{
+  "name": "@memoryai/reranking",
+  "version": "1.0.0",
+  "description": "Multi-factor local reranking engine for MemoryAI",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@memoryai/types": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

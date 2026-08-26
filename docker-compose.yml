@@ -1,0 +1,28 @@
+services:
+  memoryai:
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile
+    container_name: memoryai
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MEMORYAI_DATA_DIR=/var/lib/memoryai
+      - MEMORYAI_LOG_LEVEL=info
+    volumes:
+      - memoryai_data:/var/lib/memoryai
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/health/live"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+volumes:
+  memoryai_data:
+    driver: local

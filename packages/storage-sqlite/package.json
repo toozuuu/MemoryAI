@@ -1,0 +1,25 @@
+{
+  "name": "@memoryai/storage-sqlite",
+  "version": "1.0.0",
+  "description": "High-performance SQLite storage engine with FTS5 and vector index for MemoryAI",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@memoryai/types": "^1.0.0",
+    "@memoryai/security": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@memoryai/dashboard",
+  "version": "1.0.0",
+  "description": "Production Web Dashboard for MemoryAI",
+  "main": "./dist/index.html",
+  "scripts": {
+    "build": "echo Dashboard ready"
+  }
+}

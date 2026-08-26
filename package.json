@@ -1,0 +1,35 @@
+{
+  "name": "memoryai-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MemoryAI: Open-source, local-first long-term memory platform for AI agents",
+  "workspaces": [
+    "packages/*",
+    "adapters/*",
+    "apps/*",
+    "cli"
+  ],
+  "scripts": {
+    "build": "npm run build -w @memoryai/types && npm run build -w @memoryai/security && npm run build -w @memoryai/observability && npm run build -w @memoryai/embeddings && npm run build -w @memoryai/reranking && npm run build -w @memoryai/context-builder && npm run build -w @memoryai/extraction && npm run build -w @memoryai/memory-engine && npm run build -w @memoryai/consolidation && npm run build -w @memoryai/storage-sqlite && npm run build -w @memoryai/storage-memory-format && npm run build -w @memoryai/core && npm run build -w @memoryai/sdk && npm run build -w @memoryai/mcp && npm run build -w @memoryai/adapter-chatgpt && npm run build -w @memoryai/adapter-claude && npm run build -w @memoryai/adapter-gemini && npm run build -w @memoryai/adapter-cursor && npm run build -w @memoryai/adapter-codex && npm run build -w @memoryai/api && npm run build -w memoryai",
+    "test": "node --test tests/unit/*.test.mjs tests/memory/*.test.mjs tests/retrieval/*.test.mjs tests/mcp/*.test.mjs tests/security/isolation.test.mjs tests/security/injection-hardening.test.mjs tests/security/ssrf-limits.test.mjs tests/providers/*.test.mjs tests/skills/*.test.mjs tests/import-export/*.test.mjs tests/embeddings/*.test.mjs tests/concurrency/*.test.mjs tests/reliability/*.test.mjs tests/migration/*.test.mjs tests/cli/*.test.mjs tests/dashboard/*.test.mjs tests/performance/*.test.mjs tests/regression/*.test.mjs tests/e2e/*.test.mjs",
+    "test:security": "node ./tests/security/run-security-tests.mjs",
+    "test:all": "npm test && npm run test:security",
+    "typecheck": "npm run build"
+  },
+  "keywords": [
+    "memory",
+    "ai",
+    "mcp",
+    "long-term-memory",
+    "vector-search",
+    "local-first",
+    "sqlite",
+    "rag"
+  ],
+  "author": "MemoryAI Contributors",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.4.5"
+  }
+}

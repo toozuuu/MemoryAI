@@ -1,0 +1,61 @@
+name: MemoryAI CI/CD & Security Pipeline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  validate-and-test:
+    name: Build, Test & Security Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Type Check Monorepo
+        run: npm run typecheck
+
+      - name: Run Unit & Integration Tests
+        run: npm test
+
+      - name: Build Monorepo Artifacts
+        run: npm run build
+
+      - name: Validate Modular AI Skill Registry
+        run: node ./cli/dist/bin.js skills validate
+
+      - name: Run 14-Point Diagnostic Self-Test (Doctor)
+        run: node ./cli/dist/bin.js doctor
+
+      - name: Run Automated Security Test Suite (OWASP API Top 10)
+        run: npm run test:security
+
+      - name: Audit NPM Dependencies
+        run: npm audit --audit-level=high
+
+      - name: Build Docker Image
+        run: |
+          docker build -t memoryai:ci -f infra/docker/Dockerfile .
+
+      - name: Generate Software Bill of Materials (SBOM)
+        run: |
+          npx @cyclonedx/cyclonedx-npm --output-file sbom.json || true
+
+      - name: Upload Test and Security Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: memoryai-build-artifacts
+          path: |
+            sbom.json
+            dist/

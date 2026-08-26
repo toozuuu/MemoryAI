@@ -1,0 +1,31 @@
+{
+  "name": "memoryai",
+  "version": "1.0.0",
+  "description": "Command-line interface for MemoryAI long-term memory platform",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "memoryai": "./dist/bin.js"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@memoryai/types": "^1.0.0",
+    "@memoryai/core": "^1.0.0",
+    "@memoryai/security": "^1.0.0",
+    "@memoryai/storage-sqlite": "^1.0.0",
+    "@memoryai/storage-memory-format": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
