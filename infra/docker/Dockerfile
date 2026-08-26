@@ -9,6 +9,7 @@ COPY packages/ ./packages/
 COPY adapters/ ./adapters/
 COPY apps/ ./apps/
 COPY cli/ ./cli/
+COPY skills/ ./skills/
 
 RUN npm install
 RUN npm run build
