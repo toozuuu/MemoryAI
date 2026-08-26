@@ -284,8 +284,11 @@ export class MemoryEngine {
     const rerankMs = Date.now() - rerankStart;
 
     // 6. Total database tokens estimation
-    const allDbContent = candidateMemories.map((m) => m.content).join('\n');
-    const totalDbTokensEstimated = Math.max(estimateTokens(allDbContent), 100);
+    let totalChars = 0;
+    for (let i = 0; i < candidateMemories.length; i++) {
+      totalChars += candidateMemories[i].content.length;
+    }
+    const totalDbTokensEstimated = Math.max(Math.ceil(totalChars / 4), 100);
 
     // 7. Token budget enforcement and bounded context construction
     const recallResult = buildBoundedContext(rankedResults, {
