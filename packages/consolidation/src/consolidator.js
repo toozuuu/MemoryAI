@@ -1,4 +1,4 @@
-import { hashContent } from '@memoryai/security';
+import { hashContent } from '@sachin97317/security';
 import crypto from 'node:crypto';
 export function clusterMemoriesByEntity(memories) {
     const clusters = new Map();

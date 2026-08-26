@@ -1,6 +1,6 @@
-import { Memory, MemoryCandidate, MemoryPrivacyLevel, MemoryScope, MemoryType } from '@memoryai/types';
-import { hashContent } from '@memoryai/security';
-import { extractEntitiesAndTopics } from '@memoryai/extraction';
+import { Memory, MemoryCandidate, MemoryPrivacyLevel, MemoryScope, MemoryType } from '@sachin97317/types';
+import { hashContent } from '@sachin97317/security';
+import { extractEntitiesAndTopics } from '@sachin97317/extraction';
 import crypto from 'node:crypto';
 
 export function createMemoryFromCandidate(

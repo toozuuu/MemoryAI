@@ -1,4 +1,4 @@
-import { AuditLogEntry } from '@memoryai/types';
+import { AuditLogEntry } from '@sachin97317/types';
 import { generateSecureToken } from './crypto.js';
 
 export interface AuditSink {

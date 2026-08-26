@@ -1,5 +1,5 @@
-import { SimulationRun } from '@memoryai/types';
-import { SqliteMemoryStorage } from '@memoryai/storage-sqlite';
+import { SimulationRun } from '@sachin97317/types';
+import { SqliteMemoryStorage } from '@sachin97317/storage-sqlite';
 import { MemoryEngine } from './engine.js';
 import crypto from 'node:crypto';
 

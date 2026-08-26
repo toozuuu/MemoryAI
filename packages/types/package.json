@@ -1,5 +1,5 @@
 {
-  "name": "@memoryai/types",
+  "name": "@sachin97317/types",
   "version": "1.0.0",
   "description": "Core TypeScript types and Zod schemas for MemoryAI",
   "main": "./dist/index.js",
@@ -27,5 +27,6 @@
   },
   "devDependencies": {
     "typescript": "^5.4.5"
-  }
+  },
+  "author": "Sachin Dilshan <sachindilshan040@gmail.com>"
 }

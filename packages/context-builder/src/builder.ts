@@ -1,5 +1,5 @@
-import { Memory, MemorySearchResult, RecallResult } from '@memoryai/types';
-import { formatMemoryContextBlock, sanitizeMemoryContent } from '@memoryai/security';
+import { Memory, MemorySearchResult, RecallResult } from '@sachin97317/types';
+import { formatMemoryContextBlock, sanitizeMemoryContent } from '@sachin97317/security';
 import { estimateTokens } from './tokenizer.js';
 
 export interface ContextBuilderOptions {

@@ -1,6 +1,6 @@
-import { hashContent } from '@memoryai/security';
-import { evaluateCandidateScore, extractEntitiesAndTopics } from '@memoryai/extraction';
-import { cosineSimilarity } from '@memoryai/embeddings';
+import { hashContent } from '@sachin97317/security';
+import { evaluateCandidateScore, extractEntitiesAndTopics } from '@sachin97317/extraction';
+import { cosineSimilarity } from '@sachin97317/embeddings';
 // Contradiction / override markers
 const CONFLICT_MARKERS = [
     /no longer use/i,

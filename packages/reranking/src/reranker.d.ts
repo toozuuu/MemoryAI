@@ -1,4 +1,4 @@
-import { Memory, MemorySearchResult } from '@memoryai/types';
+import { Memory, MemorySearchResult } from '@sachin97317/types';
 export interface RerankingWeights {
     vectorWeight: number;
     bm25Weight: number;

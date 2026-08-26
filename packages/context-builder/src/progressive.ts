@@ -5,8 +5,8 @@ import {
   MemoryReference,
   SessionHandoff,
   Memory
-} from '@memoryai/types';
-import { formatMemoryContextBlock } from '@memoryai/security';
+} from '@sachin97317/types';
+import { formatMemoryContextBlock } from '@sachin97317/security';
 import { estimateTokens } from './tokenizer.js';
 import { buildBoundedContext } from './builder.js';
 

@@ -1,12 +1,12 @@
-import { SqliteMemoryStorage } from '@memoryai/storage-sqlite';
-import { getEmbeddingProvider, cosineSimilarity } from '@memoryai/embeddings';
-import { memoryBrain } from '@memoryai/memory-engine';
-import { createMemoryFromCandidate, handleTemporalConflict } from '@memoryai/memory-engine';
-import { rerankMemories } from '@memoryai/reranking';
-import { buildBoundedContext, estimateTokens } from '@memoryai/context-builder';
-import { runMemoryConsolidation } from '@memoryai/consolidation';
-import { logger, metrics, tracer } from '@memoryai/observability';
-import { hashContent } from '@memoryai/security';
+import { SqliteMemoryStorage } from '@sachin97317/storage-sqlite';
+import { getEmbeddingProvider, cosineSimilarity } from '@sachin97317/embeddings';
+import { memoryBrain } from '@sachin97317/memory-engine';
+import { createMemoryFromCandidate, handleTemporalConflict } from '@sachin97317/memory-engine';
+import { rerankMemories } from '@sachin97317/reranking';
+import { buildBoundedContext, estimateTokens } from '@sachin97317/context-builder';
+import { runMemoryConsolidation } from '@sachin97317/consolidation';
+import { logger, metrics, tracer } from '@sachin97317/observability';
+import { hashContent } from '@sachin97317/security';
 export class MemoryEngine {
     storage;
     embeddingProvider;

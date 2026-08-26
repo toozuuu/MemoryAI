@@ -1,5 +1,5 @@
-import { MemoryPackManifestSchema, MemorySchema } from '@memoryai/types';
-import { hashContent } from '@memoryai/security';
+import { MemoryPackManifestSchema, MemorySchema } from '@sachin97317/types';
+import { hashContent } from '@sachin97317/security';
 import zlib from 'node:zlib';
 import { promisify } from 'node:util';
 const gzipAsync = promisify(zlib.gzip);

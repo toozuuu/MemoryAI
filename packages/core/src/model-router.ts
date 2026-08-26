@@ -1,4 +1,4 @@
-import { ModelRoutingConfig, ModelRoutingMode } from '@memoryai/types';
+import { ModelRoutingConfig, ModelRoutingMode } from '@sachin97317/types';
 
 export class ModelRouter {
   private config: ModelRoutingConfig;

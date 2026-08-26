@@ -1,2 +1,2 @@
 export * from './client.js';
-export * from '@memoryai/types';
+export * from '@sachin97317/types';

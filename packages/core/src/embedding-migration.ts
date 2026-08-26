@@ -1,7 +1,7 @@
-import { SqliteMemoryStorage } from '@memoryai/storage-sqlite';
-import { EmbeddingProvider } from '@memoryai/embeddings';
-import { EmbeddingMetadata } from '@memoryai/types';
-import { logger } from '@memoryai/observability';
+import { SqliteMemoryStorage } from '@sachin97317/storage-sqlite';
+import { EmbeddingProvider } from '@sachin97317/embeddings';
+import { EmbeddingMetadata } from '@sachin97317/types';
+import { logger } from '@sachin97317/observability';
 
 export interface MigrationReport {
   success: boolean;

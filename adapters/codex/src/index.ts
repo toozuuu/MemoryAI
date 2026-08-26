@@ -1,4 +1,4 @@
-import { MemoryAIConversationEvent } from '@memoryai/types';
+import { MemoryAIConversationEvent } from '@sachin97317/types';
 
 export function parseCodexSession(data: any): MemoryAIConversationEvent[] {
   const events: MemoryAIConversationEvent[] = [];

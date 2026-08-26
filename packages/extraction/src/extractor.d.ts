@@ -1,4 +1,4 @@
-import { ConversationEvent, MemoryCandidate, MemoryType } from '@memoryai/types';
+import { ConversationEvent, MemoryCandidate, MemoryType } from '@sachin97317/types';
 export declare function extractEntitiesAndTopics(text: string): {
     entities: string[];
     topics: string[];

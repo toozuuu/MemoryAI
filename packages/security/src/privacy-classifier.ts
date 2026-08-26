@@ -1,4 +1,4 @@
-import { PrivacyCategory, PrivacyClassificationResult } from '@memoryai/types';
+import { PrivacyCategory, PrivacyClassificationResult } from '@sachin97317/types';
 
 export interface SensitivePattern {
   name: string;

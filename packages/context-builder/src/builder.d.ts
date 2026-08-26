@@ -1,4 +1,4 @@
-import { MemorySearchResult, RecallResult } from '@memoryai/types';
+import { MemorySearchResult, RecallResult } from '@sachin97317/types';
 export interface ContextBuilderOptions {
     maxTokens?: number;
     includeMetadata?: boolean;

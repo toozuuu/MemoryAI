@@ -6,8 +6,8 @@ import {
   MemorySearchResult,
   RecallRequest,
   RecallResult
-} from '@memoryai/types';
-import { MemoryEngine } from '@memoryai/core';
+} from '@sachin97317/types';
+import { MemoryEngine } from '@sachin97317/core';
 
 export interface MemoryAIClientOptions {
   endpoint?: string;

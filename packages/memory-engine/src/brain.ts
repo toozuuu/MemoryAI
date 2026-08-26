@@ -1,7 +1,7 @@
-import { BrainDecision, DecisionAction, Memory, MemoryCandidate } from '@memoryai/types';
-import { hashContent, sanitizeMemoryContent } from '@memoryai/security';
-import { evaluateCandidateScore, extractEntitiesAndTopics } from '@memoryai/extraction';
-import { cosineSimilarity } from '@memoryai/embeddings';
+import { BrainDecision, DecisionAction, Memory, MemoryCandidate } from '@sachin97317/types';
+import { hashContent, sanitizeMemoryContent } from '@sachin97317/security';
+import { evaluateCandidateScore, extractEntitiesAndTopics } from '@sachin97317/extraction';
+import { cosineSimilarity } from '@sachin97317/embeddings';
 
 // Contradiction / override markers
 const CONFLICT_MARKERS = [

@@ -1,5 +1,5 @@
-import { Memory } from '@memoryai/types';
-import { hashContent } from '@memoryai/security';
+import { Memory } from '@sachin97317/types';
+import { hashContent } from '@sachin97317/security';
 import crypto from 'node:crypto';
 
 export interface ConsolidationResult {

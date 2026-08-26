@@ -1,4 +1,4 @@
-import { AgentIdentity, MemoryDelegation } from '@memoryai/types';
+import { AgentIdentity, MemoryDelegation } from '@sachin97317/types';
 
 export class AgentAuthorizationError extends Error {
   constructor(message: string) {

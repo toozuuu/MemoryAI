@@ -1,4 +1,4 @@
-import { Memory, IntegrityReport } from '@memoryai/types';
+import { Memory, IntegrityReport } from '@sachin97317/types';
 
 export interface IntegrityStorageProvider {
   list(filter?: Record<string, unknown>, limit?: number): Memory[];

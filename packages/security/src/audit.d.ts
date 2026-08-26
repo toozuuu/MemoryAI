@@ -1,4 +1,4 @@
-import { AuditLogEntry } from '@memoryai/types';
+import { AuditLogEntry } from '@sachin97317/types';
 export interface AuditSink {
     record(entry: AuditLogEntry): Promise<void> | void;
 }

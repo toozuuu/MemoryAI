@@ -1,6 +1,6 @@
-import { MemorySnapshot, MemoryDiff } from '@memoryai/types';
-import { SqliteMemoryStorage } from '@memoryai/storage-sqlite';
-import { hashContent } from '@memoryai/security';
+import { MemorySnapshot, MemoryDiff } from '@sachin97317/types';
+import { SqliteMemoryStorage } from '@sachin97317/storage-sqlite';
+import { hashContent } from '@sachin97317/security';
 import crypto from 'node:crypto';
 
 export class SnapshotManager {

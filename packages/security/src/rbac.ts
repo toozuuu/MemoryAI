@@ -1,4 +1,4 @@
-import { AuthUser, Memory, UserRole } from '@memoryai/types';
+import { AuthUser, Memory, UserRole } from '@sachin97317/types';
 
 export class AuthorizationError extends Error {
   constructor(message: string, public statusCode = 403) {

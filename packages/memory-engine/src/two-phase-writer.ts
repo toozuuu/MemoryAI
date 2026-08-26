@@ -1,5 +1,5 @@
-import { MemoryCandidate, Memory, BrainDecision, MemoryReviewItem, MemoryVersion } from '@memoryai/types';
-import { privacyClassifier, hashContent } from '@memoryai/security';
+import { MemoryCandidate, Memory, BrainDecision, MemoryReviewItem, MemoryVersion } from '@sachin97317/types';
+import { privacyClassifier, hashContent } from '@sachin97317/security';
 import { memoryBrain } from './brain.js';
 import crypto from 'node:crypto';
 

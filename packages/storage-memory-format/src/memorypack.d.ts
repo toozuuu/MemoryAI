@@ -1,4 +1,4 @@
-import { Memory, MemoryPack } from '@memoryai/types';
+import { Memory, MemoryPack } from '@sachin97317/types';
 export declare class MemoryPackError extends Error {
     constructor(message: string);
 }

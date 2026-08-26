@@ -1,4 +1,4 @@
-import { Memory } from '@memoryai/types';
+import { Memory } from '@sachin97317/types';
 
 // High-risk prompt injection phrases that attempt instruction overrides
 const INJECTION_PATTERNS = [

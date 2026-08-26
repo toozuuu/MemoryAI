@@ -1,5 +1,5 @@
-import { RecallResult } from '@memoryai/types';
-import { hashContent } from '@memoryai/security';
+import { RecallResult } from '@sachin97317/types';
+import { hashContent } from '@sachin97317/security';
 
 export interface CacheKeyParams {
   tenantId: string;

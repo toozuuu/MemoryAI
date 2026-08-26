@@ -1,7 +1,7 @@
-import { BrainDecision, Memory, MemoryCandidate, MemoryFilter, MemorySearchResult, RecallRequest, RecallResult } from '@memoryai/types';
-import { SqliteMemoryStorage } from '@memoryai/storage-sqlite';
-import { EmbeddingProvider } from '@memoryai/embeddings';
-import { ConsolidationResult } from '@memoryai/consolidation';
+import { BrainDecision, Memory, MemoryCandidate, MemoryFilter, MemorySearchResult, RecallRequest, RecallResult } from '@sachin97317/types';
+import { SqliteMemoryStorage } from '@sachin97317/storage-sqlite';
+import { EmbeddingProvider } from '@sachin97317/embeddings';
+import { ConsolidationResult } from '@sachin97317/consolidation';
 export interface MemoryEngineConfig {
     storage?: SqliteMemoryStorage;
     embeddingProvider?: EmbeddingProvider;

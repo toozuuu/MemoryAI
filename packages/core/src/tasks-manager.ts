@@ -1,5 +1,5 @@
-import { MemoryTask, TaskStatus } from '@memoryai/types';
-import { SqliteMemoryStorage } from '@memoryai/storage-sqlite';
+import { MemoryTask, TaskStatus } from '@sachin97317/types';
+import { SqliteMemoryStorage } from '@sachin97317/storage-sqlite';
 import crypto from 'node:crypto';
 
 export class TasksManager {

@@ -1,5 +1,5 @@
 {
-  "name": "@memoryai/sdk",
+  "name": "@sachin97317/sdk",
   "version": "1.0.0",
   "description": "Official TypeScript/JavaScript SDK for MemoryAI",
   "main": "./dist/index.js",
@@ -16,10 +16,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@memoryai/types": "^1.0.0",
-    "@memoryai/core": "^1.0.0"
+    "@sachin97317/types": "^1.0.0",
+    "@sachin97317/core": "^1.0.0"
   },
   "devDependencies": {
     "typescript": "^5.4.5"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Sachin Dilshan <sachindilshan040@gmail.com>"
 }

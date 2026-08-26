@@ -1,5 +1,5 @@
 {
-  "name": "@memoryai/api",
+  "name": "@sachin97317/api",
   "version": "1.0.0",
   "description": "Production Fastify REST API for MemoryAI",
   "main": "./dist/index.js",
@@ -19,14 +19,18 @@
   "dependencies": {
     "@fastify/cors": "^11.3.0",
     "@fastify/helmet": "^13.1.1",
-    "@memoryai/core": "^1.0.0",
-    "@memoryai/observability": "^1.0.0",
-    "@memoryai/security": "^1.0.0",
-    "@memoryai/storage-memory-format": "^1.0.0",
-    "@memoryai/types": "^1.0.0",
+    "@sachin97317/core": "^1.0.0",
+    "@sachin97317/observability": "^1.0.0",
+    "@sachin97317/security": "^1.0.0",
+    "@sachin97317/storage-memory-format": "^1.0.0",
+    "@sachin97317/types": "^1.0.0",
     "fastify": "^5.12.1"
   },
   "devDependencies": {
     "typescript": "^5.4.5"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Sachin Dilshan <sachindilshan040@gmail.com>"
 }

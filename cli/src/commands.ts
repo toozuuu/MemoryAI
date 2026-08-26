@@ -1,8 +1,8 @@
-import { MemoryEngine, detectProjectId, EmbeddingMigrator, SkillRegistry, metrics } from '@memoryai/core';
-import { SqliteMemoryStorage } from '@memoryai/storage-sqlite';
-import { createMemoryPack, unpackMemoryPack } from '@memoryai/storage-memory-format';
-import { generateSecureToken, encryptField, decryptField, validateUrlForSSRF, RateLimiter } from '@memoryai/security';
-import { getEmbeddingProvider } from '@memoryai/embeddings';
+import { MemoryEngine, detectProjectId, EmbeddingMigrator, SkillRegistry, metrics } from '@sachin97317/core';
+import { SqliteMemoryStorage } from '@sachin97317/storage-sqlite';
+import { createMemoryPack, unpackMemoryPack } from '@sachin97317/storage-memory-format';
+import { generateSecureToken, encryptField, decryptField, validateUrlForSSRF, RateLimiter } from '@sachin97317/security';
+import { getEmbeddingProvider } from '@sachin97317/embeddings';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
@@ -613,7 +613,7 @@ export async function cmdMetrics(options: { dataDir?: string } = {}): Promise<vo
 
 export async function cmdStart(): Promise<void> {
   console.log('Starting MemoryAI MCP server in stdio mode...');
-  const { McpServer } = await import('@memoryai/mcp');
+  const { McpServer } = await import('@sachin97317/mcp');
   const server = new McpServer();
   server.startStdio();
 }
@@ -779,7 +779,7 @@ export async function cmdCost(options: { dataDir?: string } = {}): Promise<void>
 }
 
 export async function cmdSimulate(policyName: string, options: { dataDir?: string } = {}): Promise<void> {
-  const { MemorySimulationEngine } = await import('@memoryai/core');
+  const { MemorySimulationEngine } = await import('@sachin97317/core');
   const sim = new MemorySimulationEngine();
   console.log(`\n--- Running Sandbox Memory Simulation: '${policyName || 'balanced'}' ---`);
   const result = await sim.runSimulation(

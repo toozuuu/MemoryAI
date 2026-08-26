@@ -1,4 +1,4 @@
-import { MemoryAIEvent, EventPolicyAction, MemoryCandidate } from '@memoryai/types';
+import { MemoryAIEvent, EventPolicyAction, MemoryCandidate } from '@sachin97317/types';
 import crypto from 'node:crypto';
 
 export class EventNormalizer {

@@ -16,9 +16,9 @@ import {
   CreateHandoffInput,
   MemoryShareRecord,
   ShareMemoryInput
-} from '@memoryai/types';
-import { SqliteMemoryStorage } from '@memoryai/storage-sqlite';
-import { EmbeddingProvider, getEmbeddingProvider, cosineSimilarity } from '@memoryai/embeddings';
+} from '@sachin97317/types';
+import { SqliteMemoryStorage } from '@sachin97317/storage-sqlite';
+import { EmbeddingProvider, getEmbeddingProvider, cosineSimilarity } from '@sachin97317/embeddings';
 import {
   memoryBrain,
   createMemoryFromCandidate,
@@ -26,12 +26,12 @@ import {
   eventNormalizer,
   HealthMonitor,
   MemoryIntegrityChecker
-} from '@memoryai/memory-engine';
-import { CandidateMemoryMatch, rerankMemories } from '@memoryai/reranking';
-import { buildBoundedContext, buildProgressiveContext, estimateTokens, semanticContextCache } from '@memoryai/context-builder';
-import { runMemoryConsolidation, ConsolidationResult } from '@memoryai/consolidation';
-import { logger, metrics, tracer } from '@memoryai/observability';
-import { hashContent, generateSecureToken } from '@memoryai/security';
+} from '@sachin97317/memory-engine';
+import { CandidateMemoryMatch, rerankMemories } from '@sachin97317/reranking';
+import { buildBoundedContext, buildProgressiveContext, estimateTokens, semanticContextCache } from '@sachin97317/context-builder';
+import { runMemoryConsolidation, ConsolidationResult } from '@sachin97317/consolidation';
+import { logger, metrics, tracer } from '@sachin97317/observability';
+import { hashContent, generateSecureToken } from '@sachin97317/security';
 import { TasksManager } from './tasks-manager.js';
 import { SnapshotManager } from './snapshot-manager.js';
 import crypto from 'node:crypto';

@@ -1,5 +1,5 @@
-import { hashContent } from '@memoryai/security';
-import { extractEntitiesAndTopics } from '@memoryai/extraction';
+import { hashContent } from '@sachin97317/security';
+import { extractEntitiesAndTopics } from '@sachin97317/extraction';
 import crypto from 'node:crypto';
 export function createMemoryFromCandidate(candidate, context) {
     const now = new Date().toISOString();

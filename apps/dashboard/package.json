@@ -1,5 +1,5 @@
 {
-  "name": "@memoryai/dashboard",
+  "name": "@sachin97317/dashboard",
   "version": "1.0.0",
   "description": "Production Web Dashboard for MemoryAI",
   "main": "./dist/index.html",

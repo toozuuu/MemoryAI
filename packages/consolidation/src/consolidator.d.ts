@@ -1,4 +1,4 @@
-import { Memory } from '@memoryai/types';
+import { Memory } from '@sachin97317/types';
 export interface ConsolidationResult {
     consolidatedMemories: Memory[];
     archivedMemoryIds: string[];

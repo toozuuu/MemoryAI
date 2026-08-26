@@ -1,4 +1,4 @@
-import { Memory, MemoryFilter } from '@memoryai/types';
+import { Memory, MemoryFilter } from '@sachin97317/types';
 export interface SqliteStorageOptions {
     dbPath?: string;
     encryptionKey?: string;

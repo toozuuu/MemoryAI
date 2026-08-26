@@ -19,7 +19,7 @@ import {
   MemoryConflictRecord,
   MemoryDelegation,
   SyncQueueItem
-} from '@memoryai/types';
+} from '@sachin97317/types';
 import fs from 'node:fs';
 import path from 'node:path';
 

@@ -1,4 +1,4 @@
-import { formatMemoryContextBlock } from '@memoryai/security';
+import { formatMemoryContextBlock } from '@sachin97317/security';
 import { estimateTokens } from './tokenizer.js';
 export function buildBoundedContext(rankedResults, options = {}) {
     const maxTokens = options.maxTokens || 1000;

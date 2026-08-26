@@ -1,4 +1,4 @@
-import { Memory, MemoryConflictRecord, SessionHandoff, ProjectMemoryHealth } from '@memoryai/types';
+import { Memory, MemoryConflictRecord, SessionHandoff, ProjectMemoryHealth } from '@sachin97317/types';
 
 export interface HealthStorageProvider {
   list(filter?: Record<string, unknown>, limit?: number): Memory[];

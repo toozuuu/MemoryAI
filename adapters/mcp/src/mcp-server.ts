@@ -1,7 +1,7 @@
-import { MemoryEngine, detectProjectId, EmbeddingMigrator, hashContent } from '@memoryai/core';
-import { createMemoryPack, unpackMemoryPack } from '@memoryai/storage-memory-format';
-import { metrics } from '@memoryai/observability';
-import { shouldRecallMemory, classifyMemoryScope } from '@memoryai/extraction';
+import { MemoryEngine, detectProjectId, EmbeddingMigrator, hashContent } from '@sachin97317/core';
+import { createMemoryPack, unpackMemoryPack } from '@sachin97317/storage-memory-format';
+import { metrics } from '@sachin97317/observability';
+import { shouldRecallMemory, classifyMemoryScope } from '@sachin97317/extraction';
 import readline from 'node:readline';
 
 export interface McpToolDefinition {

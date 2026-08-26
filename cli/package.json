@@ -37,13 +37,14 @@
     "dist"
   ],
   "dependencies": {
-    "@memoryai/types": "^1.0.0",
-    "@memoryai/core": "^1.0.0",
-    "@memoryai/security": "^1.0.0",
-    "@memoryai/storage-sqlite": "^1.0.0",
-    "@memoryai/storage-memory-format": "^1.0.0"
+    "@sachin97317/types": "^1.0.0",
+    "@sachin97317/core": "^1.0.0",
+    "@sachin97317/security": "^1.0.0",
+    "@sachin97317/storage-sqlite": "^1.0.0",
+    "@sachin97317/storage-memory-format": "^1.0.0"
   },
   "devDependencies": {
     "typescript": "^5.4.5"
-  }
+  },
+  "author": "Sachin Dilshan <sachindilshan040@gmail.com>"
 }

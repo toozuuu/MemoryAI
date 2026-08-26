@@ -1,4 +1,4 @@
-import { Memory, MemoryCandidate } from '@memoryai/types';
+import { Memory, MemoryCandidate } from '@sachin97317/types';
 export declare function createMemoryFromCandidate(candidate: MemoryCandidate, context: {
     tenant_id: string;
     user_id: string;

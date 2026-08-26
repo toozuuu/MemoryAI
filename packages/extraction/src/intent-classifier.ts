@@ -1,4 +1,4 @@
-import { MemoryScope } from '@memoryai/types';
+import { MemoryScope } from '@sachin97317/types';
 
 // Patterns indicating self-contained questions that do NOT require historical project retrieval
 const TRIVIAL_OR_GENERIC_PATTERNS = [

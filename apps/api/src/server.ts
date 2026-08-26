@@ -1,24 +1,24 @@
 import Fastify, { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
-import { MemoryEngine } from '@memoryai/core';
+import { MemoryEngine } from '@sachin97317/core';
 import {
   AuthUser,
   CreateMemoryInputSchema,
   RecallRequestSchema,
   SearchQuerySchema,
   UpdateMemoryInputSchema
-} from '@memoryai/types';
+} from '@sachin97317/types';
 import {
   RateLimiter,
   AuditLogger,
   authorizeMemoryAccess,
   assertTenantAccess,
   assertUserAccess
-} from '@memoryai/security';
-import { logger, metrics, healthService } from '@memoryai/observability';
-import { createMemoryPack, unpackMemoryPack } from '@memoryai/storage-memory-format';
-import { rerankMemories } from '@memoryai/reranking';
+} from '@sachin97317/security';
+import { logger, metrics, healthService } from '@sachin97317/observability';
+import { createMemoryPack, unpackMemoryPack } from '@sachin97317/storage-memory-format';
+import { rerankMemories } from '@sachin97317/reranking';
 
 export interface ApiServerOptions {
   engine?: MemoryEngine;
