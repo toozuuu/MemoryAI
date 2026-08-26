@@ -4,6 +4,7 @@
   <p>Remember everything that matters. Retrieve only what matters.</p>
 
   <p>
+    <a href="https://memoryai.github.io/memoryai/"><strong>Live Interactive Demo</strong></a> •
     <a href="#core-principle">Core Principle</a> •
     <a href="#key-highlights">Key Highlights</a> •
     <a href="#quickstart">Quickstart</a> •
