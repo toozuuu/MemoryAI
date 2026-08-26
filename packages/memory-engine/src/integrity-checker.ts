@@ -1,11 +1,15 @@
-import { SqliteMemoryStorage } from '@memoryai/storage-sqlite';
-import { IntegrityReport } from '@memoryai/types';
+import { Memory, IntegrityReport } from '@memoryai/types';
+
+export interface IntegrityStorageProvider {
+  list(filter?: Record<string, unknown>, limit?: number): Memory[];
+  getVectors(ids?: string[]): Map<string, number[]>;
+}
 
 export class MemoryIntegrityChecker {
-  constructor(private storage: SqliteMemoryStorage) {}
+  constructor(private storage: IntegrityStorageProvider) {}
 
   public verifyIntegrity(): IntegrityReport {
-    const allMemories = this.storage.list({}, 10000);
+    const allMemories: Memory[] = this.storage.list({}, 10000);
     const vectors = this.storage.getVectors();
     const details: string[] = [];
 
@@ -14,7 +18,7 @@ export class MemoryIntegrityChecker {
     let duplicateHashes = 0;
     let invalidScopes = 0;
 
-    const memoryIds = new Set(allMemories.map((m) => m.id));
+    const memoryIds = new Set<string>(allMemories.map((m: Memory) => m.id));
     const seenHashes = new Set<string>();
 
     // 1. Check for orphaned vectors
@@ -64,8 +68,8 @@ export class MemoryIntegrityChecker {
     let repaired = 0;
 
     // Clean orphaned vectors
-    const allMemories = this.storage.list({}, 10000);
-    const memoryIds = new Set(allMemories.map((m) => m.id));
+    const allMemories: Memory[] = this.storage.list({}, 10000);
+    const memoryIds = new Set<string>(allMemories.map((m: Memory) => m.id));
     const vectors = this.storage.getVectors();
 
     for (const vectorId of vectors.keys()) {

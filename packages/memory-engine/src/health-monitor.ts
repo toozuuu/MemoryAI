@@ -1,22 +1,27 @@
-import { SqliteMemoryStorage } from '@memoryai/storage-sqlite';
-import { ProjectMemoryHealth } from '@memoryai/types';
+import { Memory, MemoryConflictRecord, SessionHandoff, ProjectMemoryHealth } from '@memoryai/types';
+
+export interface HealthStorageProvider {
+  list(filter?: Record<string, unknown>, limit?: number): Memory[];
+  listConflicts(projectId: string): MemoryConflictRecord[];
+  listHandoffs(projectId: string, userId?: string, limit?: number): SessionHandoff[];
+}
 
 export class HealthMonitor {
-  constructor(private storage: SqliteMemoryStorage) {}
+  constructor(private storage: HealthStorageProvider) {}
 
   public getProjectHealth(projectId: string): ProjectMemoryHealth {
-    const memories = this.storage.list({ project_id: projectId }, 5000);
-    const conflicts = this.storage.listConflicts(projectId);
-    const handoffs = this.storage.listHandoffs(projectId, undefined, 10);
+    const memories: Memory[] = this.storage.list({ project_id: projectId }, 5000);
+    const conflicts: MemoryConflictRecord[] = this.storage.listConflicts(projectId);
+    const handoffs: SessionHandoff[] = this.storage.listHandoffs(projectId, undefined, 10);
     const diagnostics: string[] = [];
 
     const totalMemories = memories.length;
-    const activeConflicts = conflicts.filter((c) => c.status === 'unresolved').length;
-    const quarantinedMemories = memories.filter((m) => m.status === 'quarantined').length;
+    const activeConflicts = conflicts.filter((c: MemoryConflictRecord) => c.status === 'unresolved').length;
+    const quarantinedMemories = memories.filter((m: Memory) => m.status === 'quarantined').length;
 
     // 1. Freshness (based on memories updated in last 90 days)
     const now = Date.now();
-    const freshCount = memories.filter((m) => {
+    const freshCount = memories.filter((m: Memory) => {
       const updatedMs = new Date(m.updated_at).getTime();
       return (now - updatedMs) / (1000 * 60 * 60 * 24) <= 90;
     }).length;
@@ -24,7 +29,7 @@ export class HealthMonitor {
 
     // 2. Confidence (average confidence * 100)
     const avgConfidence = totalMemories > 0
-      ? memories.reduce((acc, m) => acc + (m.confidence || 1.0), 0) / totalMemories
+      ? memories.reduce((acc: number, m: Memory) => acc + (m.confidence || 1.0), 0) / totalMemories
       : 1.0;
     const confidenceScore = Math.round(avgConfidence * 100);
 
@@ -32,7 +37,7 @@ export class HealthMonitor {
     const conflictScore = Math.max(0, 100 - activeConflicts * 15);
 
     // 4. Provenance score (memories having source_client or source_references)
-    const provenanceCount = memories.filter((m) => m.source_client || (m.source_references && m.source_references.length > 0)).length;
+    const provenanceCount = memories.filter((m: Memory) => m.source_client || (m.source_references && m.source_references.length > 0)).length;
     const provenanceScore = totalMemories > 0 ? Math.round((provenanceCount / totalMemories) * 100) : 100;
 
     // 5. Handoff completeness

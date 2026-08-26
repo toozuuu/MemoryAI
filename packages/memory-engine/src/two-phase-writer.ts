@@ -1,9 +1,14 @@
-import { MemoryCandidate, Memory, BrainDecision } from '@memoryai/types';
-import { privacyClassifier } from '@memoryai/security';
+import { MemoryCandidate, Memory, BrainDecision, MemoryReviewItem, MemoryVersion } from '@memoryai/types';
+import { privacyClassifier, hashContent } from '@memoryai/security';
 import { memoryBrain } from './brain.js';
-import { SqliteMemoryStorage } from '@memoryai/storage-sqlite';
-import { hashContent } from '@memoryai/security';
 import crypto from 'node:crypto';
+
+export interface TwoPhaseStorageProvider {
+  list(filter?: Record<string, unknown>, limit?: number): Memory[];
+  insert(memory: Memory): void;
+  insertReviewItem(item: MemoryReviewItem): void;
+  insertVersion(version: MemoryVersion): void;
+}
 
 export interface PreparedWrite {
   valid: boolean;
@@ -16,7 +21,7 @@ export interface PreparedWrite {
 }
 
 export class TwoPhaseMemoryWriter {
-  constructor(private storage: SqliteMemoryStorage) {}
+  constructor(private storage: TwoPhaseStorageProvider) {}
 
   // Phase 1: Validate, Privacy Scan & Policy Check
   public prepare(
