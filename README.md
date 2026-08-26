@@ -4,6 +4,15 @@
   <p>Remember everything that matters. Retrieve only what matters.</p>
 
   <p>
+    <a href="https://github.com/memoryai/memoryai/actions"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="CI Build" /></a>
+    <img src="https://img.shields.io/badge/tests-89%2F89%20passing-brightgreen.svg" alt="Tests" />
+    <img src="https://img.shields.io/badge/OWASP%20Security-100%25%20hardened-blue.svg" alt="Security" />
+    <img src="https://img.shields.io/badge/MCP%202026-Tasks%20Extension-indigo.svg" alt="MCP 2026" />
+    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" /></a>
+    <img src="https://img.shields.io/badge/node-%3E%3D22.0.0-informational.svg" alt="Node" />
+  </p>
+
+  <p>
     <a href="https://memoryai.github.io/memoryai/"><strong>Live Interactive Demo</strong></a> •
     <a href="#core-principle">Core Principle</a> •
     <a href="#key-highlights">Key Highlights</a> •

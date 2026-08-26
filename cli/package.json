@@ -1,7 +1,18 @@
 {
   "name": "memoryai",
   "version": "1.0.0",
-  "description": "Command-line interface for MemoryAI long-term memory platform",
+  "description": "Universal, local-first long-term memory CLI for AI agents (Cursor, Claude, MCP)",
+  "keywords": [
+    "memoryai",
+    "mcp",
+    "model-context-protocol",
+    "cursor",
+    "claude-code",
+    "long-term-memory",
+    "ai-agents",
+    "sqlite-fts5"
+  ],
+  "homepage": "https://memoryai.github.io/memoryai/",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {

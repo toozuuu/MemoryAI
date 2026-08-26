@@ -1,7 +1,15 @@
 {
   "name": "@memoryai/mcp",
   "version": "1.0.0",
-  "description": "Model Context Protocol (MCP) Server for MemoryAI",
+  "description": "Model Context Protocol (MCP 2026) Server with Tasks Extension for MemoryAI",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mcp-server",
+    "claude-desktop",
+    "cursor-mcp",
+    "ai-memory"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
