@@ -1,4 +1,4 @@
-name: MemoryAI Production CI/CD Pipeline
+name: Production Branch Release Pipeline
 
 on:
   push:
@@ -19,13 +19,13 @@ permissions:
   packages: write
 
 concurrency:
-  group: production-deployment
+  group: cd-production
   cancel-in-progress: false
 
 jobs:
-  # ==========================================
-  # STAGE 1: Automated Verification & Security
-  # ==========================================
+  # ====================================================
+  # STAGE 1: Full Automated Test Suite & Security Audit
+  # ====================================================
   validate-and-test:
     name: 1. Validate, Test & Security Audit
     runs-on: ubuntu-latest
@@ -60,10 +60,10 @@ jobs:
       - name: Audit High/Critical Vulnerabilities
         run: npm audit --audit-level=high
 
-  # ==========================================
-  # STAGE 2: Build & Release to NPM Registry
-  # ==========================================
-  build-and-publish-npm:
+  # ====================================================
+  # STAGE 2: Build & Release Packages to NPM Registry
+  # ====================================================
+  publish-npm:
     name: 2. Build & Publish to NPM
     needs: validate-and-test
     runs-on: ubuntu-latest
@@ -92,9 +92,9 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  # ==========================================
-  # STAGE 3: Build Production Docker Container
-  # ==========================================
+  # ====================================================
+  # STAGE 3: Build & Tag Production Docker Image
+  # ====================================================
   build-docker-production:
     name: 3. Build Production Docker Image
     needs: validate-and-test
@@ -125,9 +125,9 @@ jobs:
           path: |
             sbom.json
 
-  # ==========================================
-  # STAGE 4: Deploy Live Demo to GitHub Pages
-  # ==========================================
+  # ====================================================
+  # STAGE 4: Deploy Live Showcase to GitHub Pages
+  # ====================================================
   deploy-github-pages:
     name: 4. Deploy GitHub Pages Live Demo
     needs: validate-and-test

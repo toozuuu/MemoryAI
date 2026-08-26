@@ -1,16 +1,15 @@
-name: MemoryAI PR Validation & Testing
+name: Main Branch CI Pipeline
 
 on:
-  pull_request:
+  push:
     branches:
       - main
-      - production
-  push:
+  pull_request:
     branches:
       - main
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-main-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -21,7 +20,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -33,7 +32,7 @@ jobs:
       - name: Type Check Monorepo
         run: npm run typecheck
 
-      - name: Run Unit & Integration Tests (89 Tests)
+      - name: Run Full Test Suite (89 Tests)
         run: npm test
 
       - name: Build Monorepo Artifacts
