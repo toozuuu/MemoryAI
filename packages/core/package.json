@@ -15,6 +15,13 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit"
   },
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@memoryai/types": "^1.0.0",
     "@memoryai/security": "^1.0.0",

@@ -15,6 +15,13 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit"
   },
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "zod": "^3.23.8"
   },

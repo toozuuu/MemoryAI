@@ -1,0 +1,53 @@
+name: Manual Publish Packages to NPM
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run in dry-run mode (do not actually publish)'
+        required: false
+        default: 'false'
+        type: boolean
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    name: Build, Verify & Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Typecheck Monorepo
+        run: npm run typecheck
+
+      - name: Run Test Suite
+        run: npm test
+
+      - name: Build All Monorepo Packages
+        run: npm run build
+
+      - name: Publish to NPM (Dry Run)
+        if: "${{ inputs.dry_run == true }}"
+        run: npm run publish:dry
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to NPM Registry
+        if: "${{ inputs.dry_run == false }}"
+        run: npm run publish:all
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

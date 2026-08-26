@@ -16,7 +16,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "memoryai": "./dist/bin.js"
+    "memoryai": "dist/bin.js"
   },
   "type": "module",
   "exports": {
@@ -29,6 +29,13 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit"
   },
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@memoryai/types": "^1.0.0",
     "@memoryai/core": "^1.0.0",

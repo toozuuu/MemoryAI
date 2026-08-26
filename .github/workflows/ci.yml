@@ -1,10 +1,17 @@
-name: MemoryAI CI/CD & Security Pipeline
+name: MemoryAI PR Validation & Testing
 
 on:
-  push:
-    branches: [main, master]
   pull_request:
-    branches: [main, master]
+    branches:
+      - main
+      - production
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-and-test:
@@ -26,7 +33,7 @@ jobs:
       - name: Type Check Monorepo
         run: npm run typecheck
 
-      - name: Run Unit & Integration Tests
+      - name: Run Unit & Integration Tests (89 Tests)
         run: npm test
 
       - name: Build Monorepo Artifacts
@@ -38,24 +45,12 @@ jobs:
       - name: Run 14-Point Diagnostic Self-Test (Doctor)
         run: node ./cli/dist/bin.js doctor
 
-      - name: Run Automated Security Test Suite (OWASP API Top 10)
+      - name: Run Automated Security Test Suite (OWASP Top 10)
         run: npm run test:security
 
       - name: Audit NPM Dependencies
         run: npm audit --audit-level=high
 
-      - name: Build Docker Image
+      - name: Verify Docker Container Build
         run: |
           docker build -t memoryai:ci -f infra/docker/Dockerfile .
-
-      - name: Generate Software Bill of Materials (SBOM)
-        run: |
-          npx @cyclonedx/cyclonedx-npm --output-file sbom.json || true
-
-      - name: Upload Test and Security Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: memoryai-build-artifacts
-          path: |
-            sbom.json
-            dist/

@@ -1,0 +1,152 @@
+name: MemoryAI Production CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - production
+  workflow_dispatch:
+    inputs:
+      publish_npm:
+        description: 'Publish packages to NPM registry'
+        required: false
+        default: 'true'
+        type: boolean
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  packages: write
+
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+
+jobs:
+  # ==========================================
+  # STAGE 1: Automated Verification & Security
+  # ==========================================
+  validate-and-test:
+    name: 1. Validate, Test & Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Type Check Monorepo
+        run: npm run typecheck
+
+      - name: Run Full Test Suite (89 Tests)
+        run: npm test
+
+      - name: Run OWASP Security Test Suite
+        run: npm run test:security
+
+      - name: Run 14-Point System Diagnostic Doctor
+        run: node ./cli/dist/bin.js doctor
+
+      - name: Validate Modular AI Skill Registry
+        run: node ./cli/dist/bin.js skills validate
+
+      - name: Audit High/Critical Vulnerabilities
+        run: npm audit --audit-level=high
+
+  # ==========================================
+  # STAGE 2: Build & Release to NPM Registry
+  # ==========================================
+  build-and-publish-npm:
+    name: 2. Build & Publish to NPM
+    needs: validate-and-test
+    runs-on: ubuntu-latest
+    if: "${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_npm == true) }}"
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build All Monorepo Packages
+        run: npm run build
+
+      - name: Publish Packages to NPM Registry
+        if: env.NPM_TOKEN != ''
+        run: npm run publish:all
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # ==========================================
+  # STAGE 3: Build Production Docker Container
+  # ==========================================
+  build-docker-production:
+    name: 3. Build Production Docker Image
+    needs: validate-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Production Docker Image
+        run: |
+          docker build \
+            -t memoryai:production \
+            -t memoryai:${{ github.sha }} \
+            -f infra/docker/Dockerfile .
+
+      - name: Generate Software Bill of Materials (SBOM)
+        run: |
+          npm ci
+          npx @cyclonedx/cyclonedx-npm --output-file sbom.json || true
+
+      - name: Archive Production Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: memoryai-production-artifacts
+          path: |
+            sbom.json
+
+  # ==========================================
+  # STAGE 4: Deploy Live Demo to GitHub Pages
+  # ==========================================
+  deploy-github-pages:
+    name: 4. Deploy GitHub Pages Live Demo
+    needs: validate-and-test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs/'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
